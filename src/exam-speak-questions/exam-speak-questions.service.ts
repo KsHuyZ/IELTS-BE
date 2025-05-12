@@ -34,15 +34,13 @@ export class ExamSpeakQuestionsService {
 
   async update(
     id: ExamSpeakQuestion['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateExamSpeakQuestionDto: UpdateExamSpeakQuestionDto,
   ) {
-    // Do not remove comment below.
-    // <updating-property />
+    const { question } = updateExamSpeakQuestionDto;
+    const { secure_url } = await this.cloudinaryService.uploadAudio(question);
 
     return this.examSpeakQuestionRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
+      question: secure_url,
     });
   }
 

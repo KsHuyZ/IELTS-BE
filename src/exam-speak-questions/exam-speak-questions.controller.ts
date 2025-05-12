@@ -4,6 +4,8 @@ import {
   Body,
   UseInterceptors,
   UploadedFile,
+  Param,
+  Patch,
 } from '@nestjs/common';
 import { ExamSpeakQuestionsService } from './exam-speak-questions.service';
 import { CreateExamSpeakQuestionDto } from './dto/create-exam-speak-question.dto';
@@ -34,6 +36,18 @@ export class ExamSpeakQuestionsController {
   ) {
     return this.examSpeakQuestionsService.create({
       ...createExamSpeakQuestionDto,
+      question,
+    });
+  }
+
+  @Patch(':id')
+  @UseInterceptors(FileInterceptor('question'))
+  @ApiConsumes('multipart/form-data')
+  update(
+    @Param('id') id: string,
+    @UploadedFile() question: Express.Multer.File,
+  ) {
+    return this.examSpeakQuestionsService.update(id, {
       question,
     });
   }
