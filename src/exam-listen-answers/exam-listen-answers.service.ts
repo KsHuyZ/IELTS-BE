@@ -45,16 +45,12 @@ export class ExamListenAnswersService {
 
   async update(
     id: ExamListenAnswer['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateExamListenAnswerDto: UpdateExamListenAnswerDto,
   ) {
-    // Do not remove comment below.
-    // <updating-property />
-
-    return this.examListenAnswerRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
-    });
+    return this.examListenAnswerRepository.update(
+      id,
+      updateExamListenAnswerDto,
+    );
   }
 
   remove(id: ExamListenAnswer['id']) {
