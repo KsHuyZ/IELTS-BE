@@ -519,6 +519,40 @@ export class PracticesService {
     return practiceData;
   }
 
+  async getPracticeDetailType(id: string) {
+    const practice = await this.practiceRepository.findById(id);
+    if (!practice) throw new NotFoundException('Practice not found');
+    let practiceData = {} as any;
+    if (practice.type === PracticeType.Reading) {
+      practiceData =
+        await this.practiceReadingsService.getPracticeDataWithQuestionAndAnswer(
+          id,
+        );
+    }
+    if (practice.type === PracticeType.Listening) {
+      practiceData =
+        await this.practiceListensService.getPracticeDataWithQuestionAndAnswer(
+          id,
+        );
+    }
+    if (practice.type === PracticeType.Writing) {
+      practiceData =
+        await this.practiceWritingsService.getPracticeDataWithQuestionAndAnswer(
+          id,
+        );
+    }
+    if (practice.type === PracticeType.Speaking) {
+      practiceData =
+        await this.practiceSpeakingQuestionsService.getPracticeDataWithQuestionAndAnswer(
+          id,
+        );
+    }
+    return {
+      ...practice,
+      practiceData,
+    };
+  }
+
   getTotalPractice() {
     return this.practiceRepository.getTotalPractice();
   }

@@ -134,6 +134,11 @@ export class PracticesController {
     return this.practicesService.getPracticeDetail(id);
   }
 
+  @Get('detail-practice-type/:id')
+  getPracticeDetailType(@Param('id') id: string) {
+    return this.practicesService.getPracticeDetailType(id);
+  }
+
   @Delete(':id')
   @ApiParam({
     name: 'id',

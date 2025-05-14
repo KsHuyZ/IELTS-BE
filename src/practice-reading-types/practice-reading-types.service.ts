@@ -59,6 +59,7 @@ export class PracticeReadingTypesService {
           id: type.id,
           questions,
           content: type.content,
+          image: type.image,
         };
       }),
     );

@@ -152,10 +152,13 @@ export class UserExamsService {
   }
 
   async getSuggestionExams(userId: User['id']) {
-    const { reading, listening } = await this.getAvgScore(userId);
-    if (reading > listening) {
+    const { reading, listening, writing } = await this.getAvgScore(userId);
+    if (reading > listening && reading > writing) {
+      return this.examsService.findAllExamsByType(ExamType.Reading);
+    }
+    if (listening > reading && listening > writing) {
       return this.examsService.findAllExamsByType(ExamType.Listening);
     }
-    return this.examsService.findAllExamsByType(ExamType.Reading);
+    return this.examsService.findAllExamsByType(ExamType.Writing);
   }
 }
