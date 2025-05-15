@@ -88,7 +88,6 @@ export class PageVisitDocumentRepository implements PageVisitRepository {
       {
         $match: {
           createdAt: { $gte: startDate, $lte: endDate },
-          user: { $exists: true, $ne: null },
         },
       },
       {
