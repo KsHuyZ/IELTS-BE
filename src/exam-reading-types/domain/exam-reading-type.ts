@@ -18,6 +18,8 @@ export class ExamReadingType {
   content?: string;
 
   @ApiProperty()
+  limitAnswer?: number;
+  @ApiProperty()
   image?: string;
 
   @ApiProperty()

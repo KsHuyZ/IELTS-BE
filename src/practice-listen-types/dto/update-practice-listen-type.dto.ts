@@ -1,10 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
-import { IsNotEmpty } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdatePracticeListenTypeDto {
   @ApiProperty()
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   content: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  limitAnswer?: number;
 }

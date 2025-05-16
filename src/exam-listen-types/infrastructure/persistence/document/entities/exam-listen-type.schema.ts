@@ -28,6 +28,10 @@ export class ExamListenTypeSchemaClass extends EntityDocumentHelper {
 
   @Prop({ required: false, type: String })
   content?: string;
+
+  @Prop({ required: false, type: Number })
+  limitAnswer?: number;
+
   @Prop({ default: now })
   createdAt: Date;
 

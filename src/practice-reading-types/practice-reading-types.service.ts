@@ -60,6 +60,7 @@ export class PracticeReadingTypesService {
           questions,
           content: type.content,
           image: type.image,
+          limitAnswer: type.limitAnswer,
         };
       }),
     );

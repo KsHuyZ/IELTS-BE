@@ -2,7 +2,7 @@
 // import { Allow } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdatePracticeReadingTypeDto {
   @ApiProperty({ required: false })
@@ -12,4 +12,9 @@ export class UpdatePracticeReadingTypeDto {
 
   @ApiProperty({ type: String, format: 'binary', required: false })
   image?: Express.Multer.File;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  limitAnswer?: number;
 }

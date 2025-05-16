@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -23,4 +24,9 @@ export class CreatePracticeListenTypeDto {
   @IsOptional()
   @IsString()
   content?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  limitAnswer?: number;
 }

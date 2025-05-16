@@ -36,6 +36,9 @@ export class ExamReadingTypeSchemaClass extends EntityDocumentHelper {
   @Prop({ type: String, required: false })
   image?: string;
 
+  @Prop({ type: Number, required: false })
+  limitAnswer?: number;
+
   @Prop({ default: now })
   createdAt: Date;
 

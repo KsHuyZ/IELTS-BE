@@ -12,6 +12,7 @@ export class ExamListenTypeMapper {
     domainEntity.examSection = examSection;
     domainEntity.content = raw.content;
     domainEntity.type = raw.type;
+    domainEntity.limitAnswer = raw.limitAnswer;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
 
@@ -30,6 +31,7 @@ export class ExamListenTypeMapper {
     persistenceSchema.examSection = examSection;
     persistenceSchema.content = domainEntity.content;
     persistenceSchema.type = domainEntity.type;
+    persistenceSchema.limitAnswer = domainEntity.limitAnswer;
     persistenceSchema.createdAt = domainEntity.createdAt;
     persistenceSchema.updatedAt = domainEntity.updatedAt;
 

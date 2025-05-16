@@ -71,6 +71,7 @@ export class PracticeListenTypesService {
           questions,
           content: type.content,
           id: type.id,
+          limitAnswer: type.limitAnswer,
         };
       }),
     );

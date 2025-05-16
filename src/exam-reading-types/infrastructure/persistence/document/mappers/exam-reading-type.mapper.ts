@@ -15,6 +15,7 @@ export class ExamReadingTypeMapper {
     domainEntity.image = raw.image;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
+    domainEntity.limitAnswer = raw.limitAnswer;
 
     return domainEntity;
   }
@@ -34,6 +35,7 @@ export class ExamReadingTypeMapper {
     persistenceSchema.content = domainEntity.content;
     persistenceSchema.createdAt = domainEntity.createdAt;
     persistenceSchema.updatedAt = domainEntity.updatedAt;
+    persistenceSchema.limitAnswer = domainEntity.limitAnswer;
 
     return persistenceSchema;
   }

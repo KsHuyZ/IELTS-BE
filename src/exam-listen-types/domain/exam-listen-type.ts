@@ -15,6 +15,9 @@ export class ExamListenType {
   content?: string;
 
   @ApiProperty()
+  limitAnswer?: number;
+
+  @ApiProperty()
   type: QuestionType;
 
   @ApiProperty()

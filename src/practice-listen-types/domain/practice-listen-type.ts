@@ -18,6 +18,9 @@ export class PracticeListenType {
   content?: string;
 
   @ApiProperty()
+  limitAnswer?: number;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()

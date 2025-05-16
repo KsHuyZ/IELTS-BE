@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -18,6 +19,11 @@ export class CreateExamListenTypeDto {
   @IsNotEmpty()
   @IsEnum(Object.values(QuestionType))
   type: QuestionType;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  limitAnswer?: number;
 
   @ApiProperty()
   @IsOptional()

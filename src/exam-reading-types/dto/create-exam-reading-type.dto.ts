@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -26,4 +27,9 @@ export class CreateExamReadingTypeDto {
 
   @ApiProperty({ type: String, format: 'binary', required: false })
   image?: Express.Multer.File;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  limitAnswer?: number;
 }

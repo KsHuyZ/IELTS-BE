@@ -12,6 +12,7 @@ export class PracticeReadingTypeMapper {
     const practiceReading = new PracticeReading();
     practiceReading.id = raw.practiceReading._id.toString();
     domainEntity.practiceReading = practiceReading;
+    domainEntity.limitAnswer = raw.limitAnswer;
     domainEntity.type = raw.type;
     domainEntity.content = raw.content;
     domainEntity.image = raw.image;
@@ -34,6 +35,7 @@ export class PracticeReadingTypeMapper {
     persistenceSchema.type = domainEntity.type;
     persistenceSchema.content = domainEntity.content;
     persistenceSchema.image = domainEntity.image;
+    persistenceSchema.limitAnswer = domainEntity.limitAnswer;
     persistenceSchema.createdAt = domainEntity.createdAt;
     persistenceSchema.updatedAt = domainEntity.updatedAt;
 
