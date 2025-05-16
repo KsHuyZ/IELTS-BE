@@ -32,9 +32,9 @@ export class MailService {
     }
 
     const url = new URL(
-      this.configService.getOrThrow('app.frontendDomain', {
+      this.configService.getOrThrow('app.backendDomain', {
         infer: true,
-      }) + '/confirm-email',
+      }) + '/api/v1/auth/email/confirm',
     );
     url.searchParams.set('hash', mailData.data.hash);
 

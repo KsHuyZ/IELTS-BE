@@ -52,6 +52,13 @@ export class AuthService {
     }
     const account = user.account;
 
+    if (user.status !== StatusEnum.Active) {
+      throw new UnprocessableEntityException({
+        status: HttpStatus.UNPROCESSABLE_ENTITY,
+        errors: 'Account not active',
+      });
+    }
+
     if (!account.password) {
       throw new UnprocessableEntityException({
         status: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -104,16 +111,38 @@ export class AuthService {
       ...dto,
     });
 
-    await this.usersService.create({
+    const user = await this.usersService.create({
       ...dto,
       account,
       status: StatusEnum.Active,
     });
+
+    const hash = await this.jwtService.signAsync(
+      {
+        confirmEmailUserId: user.id,
+      },
+      {
+        secret: this.configService.getOrThrow('auth.confirmEmailSecret', {
+          infer: true,
+        }),
+        expiresIn: this.configService.getOrThrow('auth.confirmEmailExpires', {
+          infer: true,
+        }),
+      },
+    );
+
+    await this.mailService.userSignUp({
+      to: dto.email,
+      data: {
+        hash,
+      },
+    });
   }
 
-  async confirmEmail(hash: string): Promise<void> {
+  async confirmEmail(
+    hash: string,
+  ): Promise<{ url: string; statusCode: number }> {
     let userId: User['id'];
-
     try {
       const jwtData = await this.jwtService.verifyAsync<{
         confirmEmailUserId: User['id'];
@@ -145,6 +174,14 @@ export class AuthService {
     user.status = StatusEnum.Active;
 
     await this.usersService.update(user.id, user);
+
+    return {
+      url:
+        this.configService.getOrThrow('app.frontendDomain', {
+          infer: true,
+        }) + '/login',
+      statusCode: 302,
+    };
   }
 
   async confirmNewEmail(hash: string): Promise<void> {

@@ -12,7 +12,6 @@ import { IPaginationOptions } from '../utils/types/pagination-options';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { StatusEnum } from './infrastructure/persistence/document/entities/user.schema';
 import { Account } from '../accounts/domain/account';
-// import { InfinityPaginationResponseDto } from '../utils/dto/infinity-pagination-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -37,7 +36,7 @@ export class UsersService {
     return this.usersRepository.create({
       ...createUserDto,
       email: email!,
-      status: StatusEnum.Active,
+      status: StatusEnum.Inactive,
     });
   }
 
@@ -99,6 +98,7 @@ export class UsersService {
       email: email!,
       address: updateUserDto.address,
       target: updateUserDto.target,
+      status: updateUserDto.status,
     });
   }
 

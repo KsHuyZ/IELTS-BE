@@ -10,6 +10,8 @@ import {
   Patch,
   Delete,
   SerializeOptions,
+  Query,
+  Redirect,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -51,12 +53,13 @@ export class AuthController {
     return this.service.register(createUserDto);
   }
 
-  @Post('email/confirm')
+  @Get('email/confirm')
+  @Redirect()
   @HttpCode(HttpStatus.NO_CONTENT)
   async confirmEmail(
-    @Body() confirmEmailDto: AuthConfirmEmailDto,
-  ): Promise<void> {
-    return this.service.confirmEmail(confirmEmailDto.hash);
+    @Query('hash') hash: string,
+  ): Promise<{ url: string; statusCode: number }> {
+    return this.service.confirmEmail(hash);
   }
 
   @Post('email/confirm/new')
