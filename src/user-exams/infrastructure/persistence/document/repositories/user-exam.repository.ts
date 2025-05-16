@@ -257,7 +257,8 @@ export class UserExamDocumentRepository implements UserExamRepository {
         },
       })
       .populate('exam')
-      .limit(limit);
+      .limit(limit)
+      .sort({ updatedAt: -1 });
     return entityObjects.map(UserExamMapper.toDomain);
   }
 
