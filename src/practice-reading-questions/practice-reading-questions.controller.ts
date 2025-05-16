@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { PracticeReadingQuestionsService } from './practice-reading-questions.service';
 import { CreatePracticeReadingQuestionDto } from './dto/create-practice-reading-question.dto';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
@@ -36,5 +36,10 @@ export class PracticeReadingQuestionsController {
       id,
       updatePracticeReadingQuestionDto,
     );
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.practiceReadingQuestionsService.remove(id);
   }
 }

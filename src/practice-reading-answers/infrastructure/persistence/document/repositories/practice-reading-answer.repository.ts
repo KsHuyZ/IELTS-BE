@@ -103,13 +103,11 @@ export class PracticeReadingAnswerDocumentRepository
   }
 
   async findByQuestionId(id: string): Promise<PracticeReadingAnswer[]> {
-    const entities = await this.practiceReadingAnswerModel
-      .find({
-        question: {
-          _id: id,
-        },
-      })
-      .select('-isCorrect');
+    const entities = await this.practiceReadingAnswerModel.find({
+      question: {
+        _id: id,
+      },
+    });
     return entities.map(PracticeReadingAnswerMapper.toDomain);
   }
 

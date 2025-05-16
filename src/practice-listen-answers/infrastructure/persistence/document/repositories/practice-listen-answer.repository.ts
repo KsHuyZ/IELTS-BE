@@ -102,11 +102,9 @@ export class PracticeListenAnswerDocumentRepository
     return createdEntities.map(PracticeListenAnswerMapper.toDomain);
   }
   async findByQuestionId(id: string): Promise<PracticeListenAnswer[]> {
-    const entities = await this.practiceListenAnswerModel
-      .find({
-        question: { _id: id },
-      })
-      .select('-isCorrect');
+    const entities = await this.practiceListenAnswerModel.find({
+      question: { _id: id },
+    });
     return entities.map(PracticeListenAnswerMapper.toDomain);
   }
 
