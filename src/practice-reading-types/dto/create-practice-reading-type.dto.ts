@@ -14,7 +14,9 @@ export class CreatePracticeReadingTypeDto {
   @IsMongoId()
   practiceReadingId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: Object.values(QuestionType),
+  })
   @IsNotEmpty()
   @IsEnum(Object.values(QuestionType))
   type: QuestionType;

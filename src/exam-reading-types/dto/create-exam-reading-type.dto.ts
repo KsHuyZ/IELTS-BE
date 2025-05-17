@@ -14,7 +14,9 @@ export class CreateExamReadingTypeDto {
   @IsMongoId()
   examPassageId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: Object.values(QuestionType),
+  })
   @IsNotEmpty()
   @IsEnum(Object.values(QuestionType))
   type: QuestionType;

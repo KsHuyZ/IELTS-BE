@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { QuestionType } from '../../utils/types/question.type';
 
 export class UpdateExamReadingTypeDto {
-  @ApiProperty({ required: false })
+  @ApiProperty({ required: false, enum: Object.values(QuestionType) })
   @IsOptional()
   @IsEnum(Object.values(QuestionType))
   type: QuestionType;

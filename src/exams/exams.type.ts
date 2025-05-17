@@ -3,6 +3,7 @@ export enum ExamType {
   Listening = 'listening',
   Writing = 'writing',
   Speaking = 'speaking',
+  FullTest = 'full-test',
 }
 
 export enum ExamStatus {

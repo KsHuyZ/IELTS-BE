@@ -33,7 +33,9 @@ export class FindAllPracticesDto {
   @IsEnum(Object.values(PracticeType))
   type?: PracticeType;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    enum: Object.values(QuestionType),
+  })
   @IsOptional()
   @IsEnum(Object.values(QuestionType))
   questionType?: QuestionType;
