@@ -3,7 +3,6 @@ import {
   IsEnum,
   IsMongoId,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -30,6 +29,6 @@ export class CreatePracticeReadingTypeDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsNumber()
+  @IsString()
   limitAnswer?: number;
 }

@@ -1,8 +1,5 @@
-// Don't forget to use the class-validator decorators in the DTO properties.
-// import { Allow } from 'class-validator';
-
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdatePracticeReadingTypeDto {
   @ApiProperty({ required: false })
@@ -15,6 +12,6 @@ export class UpdatePracticeReadingTypeDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsNumber()
+  @IsString()
   limitAnswer?: number;
 }
