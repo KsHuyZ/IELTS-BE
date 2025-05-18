@@ -28,14 +28,18 @@ export class BlogsService {
       image: imageResponse.secure_url,
     });
     const blogId = blog.id;
-    await this.blogTopicsService.create({
-      topicId: createBlogDto.topicId,
-      blogId,
-    });
-    await this.blogGrammarPointsService.create({
-      grammarPointId: createBlogDto.grammarPointId,
-      blogId,
-    });
+    if (createBlogDto.topicId) {
+      await this.blogTopicsService.create({
+        topicId: createBlogDto.topicId,
+        blogId,
+      });
+    }
+    if (createBlogDto.grammarPointId) {
+      await this.blogGrammarPointsService.create({
+        grammarPointId: createBlogDto.grammarPointId,
+        blogId,
+      });
+    }
     return blog;
   }
 
