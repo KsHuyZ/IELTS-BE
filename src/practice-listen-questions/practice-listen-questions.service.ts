@@ -67,4 +67,8 @@ export class PracticeListenQuestionsService {
       }),
     );
   }
+
+  remove(id: PracticeListenQuestion['id']) {
+    return this.practiceListenQuestionRepository.remove(id);
+  }
 }
