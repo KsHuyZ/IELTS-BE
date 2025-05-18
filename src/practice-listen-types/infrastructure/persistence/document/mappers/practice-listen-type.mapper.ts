@@ -14,6 +14,7 @@ export class PracticeListenTypeMapper {
     domainEntity.practiceListen = practiceListen;
     domainEntity.type = raw.type;
     domainEntity.content = raw.content;
+    domainEntity.limitAnswer = raw.limitAnswer;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
 
@@ -32,6 +33,7 @@ export class PracticeListenTypeMapper {
     persistenceSchema.practiceListen = practiceListen;
     persistenceSchema.type = domainEntity.type;
     persistenceSchema.content = domainEntity.content;
+    persistenceSchema.limitAnswer = domainEntity.limitAnswer;
     persistenceSchema.createdAt = domainEntity.createdAt;
     persistenceSchema.updatedAt = domainEntity.updatedAt;
 
