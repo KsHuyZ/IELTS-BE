@@ -124,9 +124,13 @@ export class BlogsController {
   @ApiOkResponse({
     type: Blog,
   })
-  @Roles(RoleEnum.Teacher, RoleEnum.Admin)
-  update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
-    return this.blogsService.update(id, updateBlogDto);
+  @UseInterceptors(FileInterceptor('image'))
+  update(
+    @Param('id') id: string,
+    @Body() updateBlogDto: UpdateBlogDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.blogsService.update(id, { ...updateBlogDto, image });
   }
 
   @Delete(':id')
