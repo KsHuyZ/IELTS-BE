@@ -125,8 +125,12 @@ export class BlogsController {
     type: Blog,
   })
   @UseInterceptors(FileInterceptor('image'))
-  update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
-    return this.blogsService.update(id, updateBlogDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateBlogDto: UpdateBlogDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.blogsService.update(id, { ...updateBlogDto, image });
   }
 
   @Delete(':id')
