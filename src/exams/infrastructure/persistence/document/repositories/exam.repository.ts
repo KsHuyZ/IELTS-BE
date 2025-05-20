@@ -102,12 +102,10 @@ export class examDocumentRepository implements ExamRepository {
   }
 
   async findAllExamsByType(type: ExamType): Promise<Exam[]> {
-    const entities = await this.examModel
-      .find({
-        type,
-        $or: [{ isDeleted: false }, { isDeleted: { $exists: false } }],
-      })
-      .limit(5);
+    const entities = await this.examModel.find({
+      type,
+      $or: [{ isDeleted: false }, { isDeleted: { $exists: false } }],
+    });
     return entities.map(ExamMapper.toDomain);
   }
 
