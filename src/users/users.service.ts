@@ -113,7 +113,7 @@ export class UsersService {
   getUserRegistrationByMonth(
     startDate: Date = new Date(new Date().getFullYear(), 0, 1),
     endDate: Date = new Date(),
-  ): Promise<{ month: string; count: number }[]> {
+  ): Promise<{ day: string; count: number }[]> {
     return this.usersRepository.getUserRegistrationByMonth(startDate, endDate);
   }
 }

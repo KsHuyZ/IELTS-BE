@@ -39,5 +39,5 @@ export abstract class UserRepository {
   abstract getUserRegistrationByMonth(
     startDate: Date,
     endDate: Date,
-  ): Promise<{ month: string; count: number }[]>;
+  ): Promise<{ day: string; count: number }[]>;
 }

@@ -148,10 +148,29 @@ export class UsersDocumentRepository implements UserRepository {
     return months;
   }
 
+  private getAllDaysBetween(startDate: Date, endDate: Date): string[] {
+    const days: string[] = [];
+    const currentDate = new Date(startDate);
+
+    while (currentDate <= endDate) {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      const day = currentDate.getDate();
+
+      days.push(
+        `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`,
+      );
+
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return days;
+  }
+
   async getUserRegistrationByMonth(
     startDate: Date = new Date(new Date().getFullYear(), 0, 1), // Mặc định lấy từ đầu năm hiện tại
     endDate: Date = new Date(),
-  ): Promise<{ month: string; count: number }[]> {
+  ): Promise<{ day: string; count: number }[]> {
     const result = await this.usersModel.aggregate([
       {
         $match: {
@@ -164,6 +183,7 @@ export class UsersDocumentRepository implements UserRepository {
           _id: {
             year: { $year: '$createdAt' },
             month: { $month: '$createdAt' },
+            day: { $dayOfMonth: '$createdAt' },
           },
           count: { $sum: 1 },
         },
@@ -172,12 +192,13 @@ export class UsersDocumentRepository implements UserRepository {
         $sort: {
           '_id.year': 1,
           '_id.month': 1,
+          '_id.day': 1,
         },
       },
       {
         $project: {
           _id: 0,
-          month: {
+          date: {
             $concat: [
               { $toString: '$_id.year' },
               '-',
@@ -188,6 +209,14 @@ export class UsersDocumentRepository implements UserRepository {
                   else: { $toString: '$_id.month' },
                 },
               },
+              '-',
+              {
+                $cond: {
+                  if: { $lt: ['$_id.day', 10] },
+                  then: { $concat: ['0', { $toString: '$_id.day' }] },
+                  else: { $toString: '$_id.day' },
+                },
+              },
             ],
           },
           count: 1,
@@ -196,12 +225,12 @@ export class UsersDocumentRepository implements UserRepository {
     ]);
 
     // Đảm bảo tất cả các tháng đều có dữ liệu (kể cả tháng không có đăng ký)
-    const allMonths = this.getAllMonthsBetween(startDate, endDate);
-    const resultMap = new Map(result.map((item) => [item.month, item.count]));
+    const allDays = this.getAllDaysBetween(startDate, endDate);
+    const resultMap = new Map(result.map((item) => [item.date, item.count]));
 
-    return allMonths.map((month) => ({
-      month,
-      count: resultMap.get(month) || 0,
+    return allDays.map((day) => ({
+      day,
+      count: resultMap.get(day) || 0,
     }));
   }
 }
