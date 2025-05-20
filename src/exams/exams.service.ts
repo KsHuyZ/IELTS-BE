@@ -233,7 +233,10 @@ export class ExamsService {
     const userExamSession = await this.userExamSessionService.findByExamUserId(
       userExam.id,
     );
-    if ((!userExamSession || userExamSession.endTime) && userExam.score < 100) {
+    if (
+      (!userExamSession || userExamSession.endTime) &&
+      userExam.progress < 100
+    ) {
       // continue from last session
       await this.userExamSessionService.create({
         startTime: new Date(),
