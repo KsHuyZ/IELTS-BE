@@ -46,17 +46,18 @@ export class AccountsService {
     return this.accountRepository.findByIds(ids);
   }
 
-  async update(
-    id: Account['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    updateAccountDto: UpdateAccountDto,
-  ) {
-    // Do not remove comment below.
-    // <updating-property />
-
+  async update(id: Account['id'], updateAccountDto: UpdateAccountDto) {
+    const { password, ...rest } = updateAccountDto;
+    if (password) {
+      const salt = await bcrypt.genSalt();
+      const newPassword = await bcrypt.hash(password, salt);
+      return this.accountRepository.update(id, {
+        ...rest,
+        password: newPassword,
+      });
+    }
     return this.accountRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
+      ...rest,
     });
   }
 

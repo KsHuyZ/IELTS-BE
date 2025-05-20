@@ -296,7 +296,20 @@ export class AuthService {
       });
     }
 
-    user.account.password = password;
+    const account = await this.accountsService.findById(user.account.id);
+
+    if (!account) {
+      throw new UnprocessableEntityException({
+        status: HttpStatus.UNPROCESSABLE_ENTITY,
+        errors: {
+          hash: `notFound`,
+        },
+      });
+    }
+
+    await this.accountsService.update(account.id, {
+      password,
+    });
 
     await this.sessionService.deleteByUserId({
       userId: user.id,
