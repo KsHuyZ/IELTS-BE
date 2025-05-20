@@ -246,10 +246,7 @@ export class UserExamDocumentRepository implements UserExamRepository {
     return entityObjects.map(UserExamMapper.toDomain);
   }
 
-  async findAllByUserIdWithPagination(
-    userId: User['id'],
-    limit = 5,
-  ): Promise<UserExam[]> {
+  async findAllByUserIdWithPagination(userId: User['id']): Promise<UserExam[]> {
     const entityObjects = await this.userExamModel
       .find({
         user: {
@@ -257,7 +254,6 @@ export class UserExamDocumentRepository implements UserExamRepository {
         },
       })
       .populate('exam')
-      .limit(limit)
       .sort({ updatedAt: -1 });
     return entityObjects.map(UserExamMapper.toDomain);
   }
