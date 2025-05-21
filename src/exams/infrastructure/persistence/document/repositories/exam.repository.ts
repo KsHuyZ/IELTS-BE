@@ -110,6 +110,8 @@ export class examDocumentRepository implements ExamRepository {
   }
 
   async getTotalExam(): Promise<number> {
-    return this.examModel.countDocuments();
+    return this.examModel.countDocuments({
+      $or: [{ isDeleted: false }, { isDeleted: { $exists: false } }],
+    });
   }
 }

@@ -88,6 +88,8 @@ export class PracticeDocumentRepository implements PracticeRepository {
   }
 
   async getTotalPractice(): Promise<number> {
-    return this.practiceModel.countDocuments();
+    return this.practiceModel.countDocuments({
+      $or: [{ isDeleted: false }, { isDeleted: { $exists: false } }],
+    });
   }
 }
