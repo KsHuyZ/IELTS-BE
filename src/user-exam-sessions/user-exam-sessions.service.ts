@@ -133,9 +133,9 @@ export class UserExamSessionsService {
       }
       const current = dayScoreMap.get(examDate)?.get(examType);
       if (current) {
-        current.total +=
-          (session.endTime?.getTime() || new Date().getTime()) -
-          session.startTime.getTime();
+        current.total += session.endTime?.getTime()
+          ? session.endTime?.getTime() - session.startTime.getTime()
+          : 0;
       }
     });
 
